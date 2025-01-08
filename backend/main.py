@@ -1,4 +1,3 @@
-import torch
 import shutil
 import subprocess
 import os
@@ -20,6 +19,7 @@ from backend.tools.inpaint_tools import create_mask, batch_generator
 import importlib
 import platform
 import tempfile
+import torch
 import multiprocessing
 from shapely.geometry import Polygon
 import time
@@ -72,7 +72,7 @@ class SubtitleDetect:
     def find_subtitle_frame_no(self, sub_remover=None):
         video_cap = cv2.VideoCapture(self.video_path)
         frame_count = video_cap.get(cv2.CAP_PROP_FRAME_COUNT)
-        tbar = tqdm(total=int(frame_count), unit='frame', position=0, file=sys.__stdout__, desc='Subtitle Finding')
+        tbar = tqdm(total=int(frame_count), unit='frame', position=0, desc='Subtitle Finding', mininterval=1.0)
         current_frame_no = 0
         subtitle_frame_no_box_dict = {}
         print('[Processing] start finding subtitles...')
@@ -819,8 +819,7 @@ class SubtitleRemover:
         start_time = time.time()
         # 重置进度条
         self.progress_total = 0
-        tbar = tqdm(total=int(self.frame_count), unit='frame', position=0, file=sys.__stdout__,
-                    desc='Subtitle Removing')
+        tbar = tqdm(total=int(self.frame_count), unit='frame', position=0, desc='Subtitle Removing', mininterval=1.0)
         if self.is_picture:
             sub_list = self.sub_detector.find_subtitle_frame_no(sub_remover=self)
             self.lama_inpaint = LamaInpaint()

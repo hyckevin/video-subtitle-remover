@@ -1,0 +1,1 @@
+start cmd /k "conda activate videoEnv & python gui.py"

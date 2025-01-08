@@ -110,7 +110,7 @@ PIXEL_TOLERANCE_X = 20  # 允许检测框横向偏差的像素点数
 """
 STTN_SKIP_DETECTION = True
 # 参考帧步长
-STTN_NEIGHBOR_STRIDE = 5
+STTN_NEIGHBOR_STRIDE = 10
 # 参考帧长度（数量）
 STTN_REFERENCE_LENGTH = 10
 # 设置STTN算法最大同时处理的帧数量
